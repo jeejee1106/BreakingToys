@@ -27,19 +27,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        Parameter parameterBuilder = new ParameterBuilder()
-                .name(HttpHeaders.AUTHORIZATION)
-                .description("Access Tocken")
-                .modelRef(new ModelRef("string"))
-                .parameterType("header")
-                .required(false)
-                .build();
-
-        List<Parameter> globalParameters = new ArrayList<>();
-        globalParameters.add(parameterBuilder);
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .globalOperationParameters(globalParameters)
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.toy"))

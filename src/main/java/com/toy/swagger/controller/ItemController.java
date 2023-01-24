@@ -1,41 +1,46 @@
 package com.toy.swagger.controller;
 
-import com.toy.swagger.domain.ItemDto;
-import com.toy.swagger.repository.ItemRepository;
+import com.toy.swagger.domain.dto.ItemFindAllDescResponseDto;
+import com.toy.swagger.domain.dto.ItemSaveRequestDto;
+import com.toy.swagger.domain.entity.Item;
+import com.toy.swagger.repository.ItemsRepository;
+import com.toy.swagger.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-@RestController("/item")
+@RestController
+@RequestMapping("/item")
 @RequiredArgsConstructor
 public class ItemController {
 
-    public final ItemRepository itemRepository;
+    public final ItemsRepository itemsRepository;
+    public final ItemService itemService;
 
     @PostConstruct
     public void init() {
-        itemRepository.save(new ItemDto("itemA", 10000, 10));
-        itemRepository.save(new ItemDto("itemB", 20000, 20));
+        itemsRepository.save(Item.builder()
+                .itemName("test1")
+                .price(1000)
+                .quantity(10)
+                .build());
+        itemsRepository.save(Item.builder()
+                .itemName("test2")
+                .price(2000)
+                .quantity(300)
+                .build());
     }
 
-    @GetMapping("/test")
-    public String swaggerTest() {
-        return "성공";
+    @PostMapping
+    public void saveItem(ItemSaveRequestDto dto) {
+        itemsRepository.save(dto.toEntity());
     }
 
     @GetMapping
-    public List<ItemDto> getItemsList(Model model) {
-        List<ItemDto> items = itemRepository.findAll();
+    public List<ItemFindAllDescResponseDto> findAllDesc() {
+        List<ItemFindAllDescResponseDto> items = itemService.findAllDesc();
         return items;
-    }
-
-    @PostMapping()
-    public ItemDto insertItem(ItemDto itemDto) {
-        return itemRepository.save(itemDto);
     }
 }

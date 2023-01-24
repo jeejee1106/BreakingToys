@@ -1,21 +1,28 @@
-package com.toy.swagger.domain;
+package com.toy.swagger.domain.entity;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
+import javax.persistence.*;
+
+@Entity
 @Getter
 @NoArgsConstructor
-public class ItemDto {
+public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String itemName;
+
     private Integer price;
+
     private Integer quantity;
 
-    public ItemDto(String itemName, Integer price, Integer quantity) {
+    @Builder
+    public Item(String itemName, Integer price, Integer quantity) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
