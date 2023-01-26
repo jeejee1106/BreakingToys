@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/item")
@@ -36,6 +37,12 @@ public class ItemController {
     @PostMapping
     public void saveItem(ItemSaveRequestDto dto) {
         itemsRepository.save(dto.toEntity());
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Item> findById(@PathVariable Long id) {
+        Optional<Item> items = itemService.findById(id);
+        return items;
     }
 
     @GetMapping
