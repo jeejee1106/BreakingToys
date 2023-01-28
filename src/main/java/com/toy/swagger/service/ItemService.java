@@ -1,6 +1,7 @@
 package com.toy.swagger.service;
 
 import com.toy.swagger.domain.dto.ItemFindAllDescResponseDto;
+import com.toy.swagger.domain.dto.ItemSaveRequestDto;
 import com.toy.swagger.domain.entity.Item;
 import com.toy.swagger.repository.ItemsRepository;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,13 @@ public class ItemService {
 
     private ItemsRepository itemsRepository;
 
+    public void saveItem(ItemSaveRequestDto dto) {
+        itemsRepository.save(dto.toEntity());
+    }
+
     @Transactional(readOnly = true) //readOnly = true 옵션은 트랜잭션 범위는 유지하되, 조회 기능만 남겨두는 역할을 한다. 조회 속도 개선!
-    public Optional<Item> findById(Long id) {
-        return itemsRepository.findById(id);
+    public List<Item> findAll() {
+        return itemsRepository.findAll();
     }
 
     @Transactional(readOnly = true) //readOnly = true 옵션은 트랜잭션 범위는 유지하되, 조회 기능만 남겨두는 역할을 한다. 조회 속도 개선!
@@ -30,4 +35,16 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true) //readOnly = true 옵션은 트랜잭션 범위는 유지하되, 조회 기능만 남겨두는 역할을 한다. 조회 속도 개선!
+    public Optional<Item> findById(Long id) {
+        return itemsRepository.findById(id);
+    }
+
+    public void deleteAll() {
+        itemsRepository.deleteAll();
+    }
+
+    public void deleteById(Long id) {
+        itemsRepository.deleteById(id);
+    }
 }

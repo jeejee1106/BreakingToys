@@ -20,6 +20,9 @@ public class ItemController {
     public final ItemsRepository itemsRepository;
     public final ItemService itemService;
 
+    /* 스웨거 주소 : http://localhost:8080/swagger-ui/index.html */
+    /* h2 주소 : http://localhost:8080/h2-console */
+
     @PostConstruct
     public void init() {
         itemsRepository.save(Item.builder()
@@ -35,8 +38,21 @@ public class ItemController {
     }
 
     @PostMapping
-    public void saveItem(ItemSaveRequestDto dto) {
-        itemsRepository.save(dto.toEntity());
+    public String saveItem(ItemSaveRequestDto dto) {
+        itemService.saveItem(dto);
+        return "아이템 저장 완료";
+    }
+
+    @GetMapping()
+    public List<Item> findAll() {
+        List<Item> items = itemService.findAll();
+        return items;
+    }
+
+    @GetMapping("/desc")
+    public List<ItemFindAllDescResponseDto> findAllDesc() {
+        List<ItemFindAllDescResponseDto> items = itemService.findAllDesc();
+        return items;
     }
 
     @GetMapping("/{id}")
@@ -45,9 +61,15 @@ public class ItemController {
         return items;
     }
 
-    @GetMapping
-    public List<ItemFindAllDescResponseDto> findAllDesc() {
-        List<ItemFindAllDescResponseDto> items = itemService.findAllDesc();
-        return items;
+    @DeleteMapping
+    public String deleteAll() {
+        itemService.deleteAll();
+        return "모든 상품이 삭제되었습니다.";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteById(@PathVariable Long id) {
+        itemService.deleteById(id);
+        return id + "번 상품이 삭제되었습니다.";
     }
 }
