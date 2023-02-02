@@ -1,9 +1,13 @@
 package com.toy.library.entity;
 
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
 public class Loan {
 
     @Id
@@ -32,4 +36,15 @@ public class Loan {
     @Column(nullable = false)
     private int overDueDay;
 
+    @Builder
+
+    public Loan(Long no, Book book, User user, LocalDateTime loanDt, LocalDateTime dueDt, int status, int overDueDay) {
+        this.no = no;
+        this.book = book;
+        this.user = user;
+        this.loanDt = loanDt;
+        this.dueDt = dueDt;
+        this.status = status;
+        this.overDueDay = overDueDay;
+    }
 }
