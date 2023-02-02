@@ -1,9 +1,6 @@
 package com.toy.library.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,10 +9,22 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
-    private Long bookNo;
-    private Long userNo;
+
+    @ManyToOne
+    @JoinColumn(name = "bookNo")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "userNo")
+    private User user;
+
+    @Column(nullable = false)
     private int status;
+
+    @Column(nullable = false)
     private LocalDateTime createDt;
+
+    @Column(nullable = false)
     private LocalDateTime updateDt;
 
 }

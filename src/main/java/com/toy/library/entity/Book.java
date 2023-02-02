@@ -1,9 +1,6 @@
 package com.toy.library.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,12 +9,27 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
-    private Long libraryNo;
+
+    @ManyToOne
+    @JoinColumn(name = "libraryNo")
+    private Library library;
+
+    @Column(nullable = false)
     private String title;
-    private String statusYn;
+
+    @Column(nullable = false)
+    private String loanStatusYn;
+
+    @Column(nullable = false)
     private String rsvStatusYn;
+
+    @Column(nullable = false)
     private LocalDateTime createDt;
+
+    @Column(nullable = false)
     private LocalDateTime updateDt;
+
+    @Column(nullable = false)
     private String delYn;
 
 }
