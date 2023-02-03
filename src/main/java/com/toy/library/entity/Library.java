@@ -29,8 +29,7 @@ public class Library {
     private String delYn;
 
     @Builder
-    public Library(Long no, String name, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
-        this.no = no;
+    public Library(String name, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
         this.name = name;
         this.createDt = createDt;
         this.updateDt = updateDt;
