@@ -27,8 +27,6 @@ public class LibraryRepositoryTest {
         //given
         libraryRepository.save(Library.builder()
                 .name("test도서관")
-                .createDt(LocalDateTime.now())
-                .updateDt(LocalDateTime.now())
                 .delYn("N")
                 .build());
 
@@ -45,8 +43,6 @@ public class LibraryRepositoryTest {
         //given
         libraryRepository.save(Library.builder()
                 .name("서울시립도서관")
-                .createDt(LocalDateTime.now())
-                .updateDt(LocalDateTime.now())
                 .delYn("N")
                 .build());
 

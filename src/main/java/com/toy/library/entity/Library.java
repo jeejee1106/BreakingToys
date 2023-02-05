@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Library {
+public class Library extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,19 +19,11 @@ public class Library {
     private String name;
 
     @Column(nullable = false)
-    private LocalDateTime createDt;
-
-    @Column(nullable = false)
-    private LocalDateTime updateDt;
-
-    @Column(nullable = false)
     private String delYn;
 
     @Builder
-    public Library(String name, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
+    public Library(String name, String delYn) {
         this.name = name;
-        this.createDt = createDt;
-        this.updateDt = updateDt;
         this.delYn = delYn;
     }
 }

@@ -3,7 +3,6 @@ package com.toy.library.dto;
 import com.toy.library.entity.Library;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -19,14 +18,6 @@ public class LibraryDto {
         @Schema(example = "뭐지", description = "도서관명")
         private String name;
 
-        @NotNull(message = "createDt 값이 비어있음")
-        @Schema(example = "뭐지", description = "등록일")
-        private LocalDateTime createDt;
-
-        @NotNull(message = "updateDt 값이 비어있음")
-        @Schema(example = "뭐지", description = "수정일")
-        private LocalDateTime updateDt;
-
         @NotNull(message = "delYn 값이 비어있음")
         @Schema(example = "뭐지", description = "삭제여부")
         private String delYn;
@@ -34,8 +25,6 @@ public class LibraryDto {
         public Library toEntity() {
             return Library.builder()
                     .name(name)
-                    .createDt(createDt)
-                    .updateDt(updateDt)
                     .delYn(delYn)
                     .build();
         }
@@ -43,7 +32,7 @@ public class LibraryDto {
 
 
     @NoArgsConstructor
-    @Getter
+    @Setter
     public class SaveLibraryRes {
 
         private String name;

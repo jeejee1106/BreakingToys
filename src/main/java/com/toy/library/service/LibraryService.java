@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LibraryService {
 
-    private LibraryRepository libraryRepository;
+    private final LibraryRepository libraryRepository;
 
     public void saveLibrary(LibraryDto.SaveLibraryReq libraryReqDto) {
         libraryRepository.save(libraryReqDto.toEntity());
