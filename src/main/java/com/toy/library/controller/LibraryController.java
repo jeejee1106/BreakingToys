@@ -5,10 +5,7 @@ import com.toy.library.service.LibraryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -20,16 +17,20 @@ public class LibraryController {
 
     @Operation(summary = "도서관 등록")
     @PostMapping
-    public LibraryDto.SaveLibraryRes saveLibrary(LibraryDto.SaveLibraryReq req) {
-        LibraryDto.SaveLibraryRes res = libraryService.saveLibrary(req);
-        return res;
+    public LibraryDto.LibraryRes saveLibrary(LibraryDto.SaveLibraryReq req) {
+        return libraryService.saveLibrary(req);
     }
 
     @Operation(summary = "도서관 목록 전체 조회")
     @GetMapping
-    public LibraryDto.SelectLibraryListRes findById() {
-        LibraryDto.SelectLibraryListRes list = libraryService.findAll();
-        return list;
+    public LibraryDto.SelectLibraryListRes findAll() {
+        return libraryService.findAll();
+    }
+
+    @Operation(summary = "고유No로 도서관 조회")
+    @GetMapping("/{no}")
+    public LibraryDto.LibraryRes findById(@PathVariable Long no) {
+        return libraryService.findById(no);
     }
 
 }

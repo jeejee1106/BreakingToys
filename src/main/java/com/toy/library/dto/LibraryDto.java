@@ -33,14 +33,14 @@ public class LibraryDto {
 
     @NoArgsConstructor
     @Getter
-    public static class SaveLibraryRes {
+    public static class LibraryRes {
         private Long no;
         private String name;
         private LocalDateTime createDt;
         private LocalDateTime updateDt;
         private String delYn;
 
-        public SaveLibraryRes(Library entity) {
+        public LibraryRes(Library entity) {
             this.no = entity.getNo();
             this.name = entity.getName();
             this.createDt = entity.getCreateDt();
