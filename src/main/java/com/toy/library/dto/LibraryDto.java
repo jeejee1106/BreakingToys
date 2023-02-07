@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class LibraryDto {
 
@@ -33,7 +34,6 @@ public class LibraryDto {
     @NoArgsConstructor
     @Getter
     public static class SaveLibraryRes {
-
         private Long no;
         private String name;
         private LocalDateTime createDt;
@@ -47,7 +47,19 @@ public class LibraryDto {
             this.updateDt = entity.getUpdateDt();
             this.delYn = entity.getDelYn();
         }
+    }
 
+    @NoArgsConstructor
+    @Getter
+    public static class SelectLibraryListRes {
+
+        private List<Library> list;
+        private int totalCount;
+
+        public SelectLibraryListRes(List<Library> list, int totalCount) {
+            this.list = list;
+            this.totalCount = totalCount;
+        }
     }
 
 }

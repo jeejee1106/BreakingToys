@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -17,5 +19,10 @@ public class LibraryService {
     public LibraryDto.SaveLibraryRes saveLibrary(LibraryDto.SaveLibraryReq libraryReqDto) {
         Library entity = libraryRepository.save(libraryReqDto.toEntity());
         return new LibraryDto.SaveLibraryRes(entity);
+    }
+
+    public LibraryDto.SelectLibraryListRes findAll() {
+        List<Library> list = libraryRepository.findAll();
+        return new LibraryDto.SelectLibraryListRes(list, list.size());
     }
 }
