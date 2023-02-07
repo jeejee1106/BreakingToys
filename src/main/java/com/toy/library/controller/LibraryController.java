@@ -19,9 +19,9 @@ public class LibraryController {
 
     @Operation(summary = "도서관 등록")
     @PostMapping
-    public String saveLibrary(LibraryDto.SaveLibraryReq libraryReqDto) {
-        libraryService.saveLibrary(libraryReqDto);
-        return "도서관 저장 완료";
+    public LibraryDto.SaveLibraryRes saveLibrary(LibraryDto.SaveLibraryReq req) {
+        LibraryDto.SaveLibraryRes res = libraryService.saveLibrary(req);
+        return res;
     }
 
 }

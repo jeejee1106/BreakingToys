@@ -30,15 +30,23 @@ public class LibraryDto {
         }
     }
 
-
     @NoArgsConstructor
-    @Setter
-    public class SaveLibraryRes {
+    @Getter
+    public static class SaveLibraryRes {
 
+        private Long no;
         private String name;
         private LocalDateTime createDt;
         private LocalDateTime updateDt;
         private String delYn;
+
+        public SaveLibraryRes(Library entity) {
+            this.no = entity.getNo();
+            this.name = entity.getName();
+            this.createDt = entity.getCreateDt();
+            this.updateDt = entity.getUpdateDt();
+            this.delYn = entity.getDelYn();
+        }
 
     }
 
