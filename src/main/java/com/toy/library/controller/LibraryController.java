@@ -33,4 +33,21 @@ public class LibraryController {
         return libraryService.findById(no);
     }
 
+    /**
+     * 도서관 삭제는 deleteById 또는 delete 두 개 중 아무거나 사용.
+     * 둘 다 작동원리는 같음. return하는 오류 코드만 다름.
+     * @param no
+     */
+//    @Operation(summary = "deleteById로 도서관 삭제")
+//    @DeleteMapping("/{no}")
+//    public void deleteById(@PathVariable Long no) {
+//        libraryService.deleteById(no);
+//    }
+
+    @Operation(summary = "delete로 도서관 삭제")
+    @DeleteMapping("/{no}")
+    public void delete(@PathVariable Long no) {
+        libraryService.delete(no);
+    }
+
 }
