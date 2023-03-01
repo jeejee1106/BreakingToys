@@ -1,22 +1,25 @@
 package com.toy.library.entity;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @NoArgsConstructor
-public class Book {
+public class Book extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;
+    private Long bookNo;
 
+    //얘만 있으면 다대일 단방향 연관관계.
     @ManyToOne
     @JoinColumn(name = "libraryNo")
-    private Library library;
+    private Library libraryNo;
 
     @Column(nullable = false)
     private String title;
@@ -25,26 +28,20 @@ public class Book {
     private String loanStatusYn;
 
     @Column(nullable = false)
+    private String lossYn;
+
+    @Column(nullable = false)
     private String rsvStatusYn;
-
-    @Column(nullable = false)
-    private LocalDateTime createDt;
-
-    @Column(nullable = false)
-    private LocalDateTime updateDt;
 
     @Column(nullable = false)
     private String delYn;
 
     @Builder
-    public Book(Long no, Library library, String title, String loanStatusYn, String rsvStatusYn, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
-        this.no = no;
-        this.library = library;
+    public Book(Library libraryNo, String title, String loanStatusYn, String lossYn, String rsvStatusYn, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
+        this.libraryNo = libraryNo;
         this.title = title;
         this.loanStatusYn = loanStatusYn;
         this.rsvStatusYn = rsvStatusYn;
-        this.createDt = createDt;
-        this.updateDt = updateDt;
         this.delYn = delYn;
     }
 }

@@ -41,7 +41,7 @@ public class LibraryDto {
         private String delYn;
 
         public LibraryRes(Library entity) {
-            this.no = entity.getNo();
+            this.no = entity.getLibraryNo();
             this.name = entity.getName();
             this.createDt = entity.getCreateDt();
             this.updateDt = entity.getUpdateDt();

@@ -13,7 +13,7 @@ public class Library extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;
+    private Long libraryNo;
 
     @Column(nullable = false)
     private String name;
