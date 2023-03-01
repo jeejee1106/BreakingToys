@@ -4,4 +4,4 @@ spring:
       matching-strategy: ant_path_matcher
   h2:
     console:
-      enabled: true #? ??? ??? http://localhost:8080/h2-console? ???? ? h2 ??? ??? ??.
+      enabled: true #db를 h2로 관리하겠다. true로 놔야 h2관리 시작.
