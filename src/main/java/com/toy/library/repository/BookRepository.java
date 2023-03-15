@@ -1,7 +1,6 @@
 package com.toy.library.repository;
 
 import com.toy.library.entity.Book;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,7 +21,7 @@ public class BookRepository {
     }
 
     public List<Book> findAll() {
-        return em.createQuery("select b from book b", Book.class)
+        return em.createQuery("select b from Book b", Book.class)
                 .getResultList();
     }
 
@@ -31,8 +30,13 @@ public class BookRepository {
         return Optional.ofNullable(book);
     }
 
-    public void deleteById(Long no) {
-        em.remove(no);
+    public void deleteById(Book book) {
+        em.remove(book);
+    }
+
+    public List<Long> count() {
+        return em.createQuery("select count(b) from Book b", Long.class)
+                .getResultList();
     }
 
 }

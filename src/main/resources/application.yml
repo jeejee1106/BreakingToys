@@ -11,7 +11,9 @@ spring:
     console:
       enabled: false #db를 h2로 관리하겠다. true로 놔야 h2관리 시작.
   jpa:
-    show_sql: true
-    format_sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true

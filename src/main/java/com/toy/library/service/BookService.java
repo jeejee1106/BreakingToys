@@ -1,18 +1,15 @@
 package com.toy.library.service;
 
-import com.toy.library.dto.BookDto;
+import com.toy.library.dto.BookReqDto;
+import com.toy.library.dto.BookResDto;
 import com.toy.library.entity.Book;
 import com.toy.library.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -22,19 +19,19 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public BookDto.BookRes saveBook(BookDto.SaveBookReq bookReqDto) {
+    public BookResDto.BookRes saveBook(BookReqDto.SaveBookReq bookReqDto) {
         Book entity = bookRepository.save(bookReqDto.toEntity());
-        return new BookDto.BookRes(entity);
+        return new BookResDto.BookRes(entity);
     }
 
-    public BookDto.SelectBookListRes findAll() {
+    public BookResDto.SelectBookListRes findAll() {
         List<Book> list = bookRepository.findAll();
-        return new BookDto.SelectBookListRes(list, list.size());
+        return new BookResDto.SelectBookListRes(list, list.size());
     }
 
-    public BookDto.BookRes findById(Long no) {
-        Book entity = bookRepository.findById(no).orElseThrow(() -> new IllegalArgumentException(no + "번에 해당하는 도서관이 없습니다."));
-        return new BookDto.BookRes(entity);
+    public BookResDto.BookRes findById(Long no) {
+        Book entity = bookRepository.findById(no).orElseThrow(() -> new IllegalArgumentException(no + "번에 해당하는 도서가 없습니다."));
+        return new BookResDto.BookRes(entity);
     }
 
     /**
@@ -61,8 +58,8 @@ public class BookService {
      * null입력 시 500에러 발생
      * 흠 삭제 성공했을 땐 returnCode와 returnMessage를 따로 반환해주고 싶은데...흠...
      */
-    public void deleteById(Long no) {
-        bookRepository.deleteById(no);
+    public void deleteById(Book book) {
+        bookRepository.deleteById(book);
     }
 
     /**

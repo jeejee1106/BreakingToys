@@ -45,4 +45,8 @@ public class Book extends BaseTimeEntity{
         this.rsvStatusYn = rsvStatusYn;
         this.delYn = delYn;
     }
+
+    public Book(Long bookNo) {
+        this.bookNo = bookNo;
+    }
 }
