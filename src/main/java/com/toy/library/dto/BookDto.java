@@ -18,9 +18,9 @@ public class BookDto {
     @NoArgsConstructor
     public class SaveBookReq {
 
-        @NotNull(message = "libraryNo 값이 비어있음")
-        @Schema(example = "1", description = "도서관 고유 No")
-        private Library libraryNo;
+//        @NotNull(message = "libraryNo 값이 비어있음")
+//        @Schema(example = "1", description = "도서관 고유 No")
+//        private Library libraryNo;
 
         @NotNull(message = "title 값이 비어있음")
         @Schema(example = "책 제목 입니다.", description = "책 제목")
@@ -44,7 +44,7 @@ public class BookDto {
 
         public Book toEntity() {
             return Book.builder()
-                    .libraryNo(libraryNo)
+//                    .libraryNo(libraryNo)
                     .title(title)
                     .loanStatusYn(loanStatusYn)
                     .lossYn(lossYn)
@@ -58,6 +58,7 @@ public class BookDto {
     @Getter
     public static class BookRes {
         private Library libraryNo;
+        private Long bookNo;
         private String title;
         private String loanStatusYn;
         private String lossYn;
@@ -67,7 +68,8 @@ public class BookDto {
         private String delYn;
 
         public BookRes(Book entity) {
-            this.libraryNo = entity.getLibraryNo();
+//            this.libraryNo = entity.getLibraryNo();
+            this.bookNo = entity.getBookNo();
             this.title = entity.getTitle();
             this.loanStatusYn = entity.getLoanStatusYn();
             this.lossYn = entity.getLossYn();

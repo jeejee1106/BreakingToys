@@ -17,9 +17,9 @@ public class Book extends BaseTimeEntity{
     private Long bookNo;
 
     //얘만 있으면 다대일 단방향 연관관계.
-    @ManyToOne
-    @JoinColumn(name = "libraryNo")
-    private Library libraryNo;
+//    @ManyToOne
+//    @JoinColumn(name = "libraryNo")
+//    private Library libraryNo;
 
     @Column(nullable = false)
     private String title;
@@ -37,10 +37,11 @@ public class Book extends BaseTimeEntity{
     private String delYn;
 
     @Builder
-    public Book(Library libraryNo, String title, String loanStatusYn, String lossYn, String rsvStatusYn, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
-        this.libraryNo = libraryNo;
+    public Book(String title, String loanStatusYn, String lossYn, String rsvStatusYn, LocalDateTime createDt, LocalDateTime updateDt, String delYn) {
+//        this.libraryNo = libraryNo;
         this.title = title;
         this.loanStatusYn = loanStatusYn;
+        this.lossYn = lossYn;
         this.rsvStatusYn = rsvStatusYn;
         this.delYn = delYn;
     }

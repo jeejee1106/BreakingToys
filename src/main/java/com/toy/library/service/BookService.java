@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BookService {
 
@@ -42,14 +44,14 @@ public class BookService {
      * 또 뭐가 있을까
      * @return
      */
-    public ResponseEntity<Map<String, Object>> deleteAll() {
-        Map<String, Object> map = new HashMap<>();
-        bookRepository.deleteAll();
-        map.put("code", "200");
-        map.put("message", "ok");
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
+//    public ResponseEntity<Map<String, Object>> deleteAll() {
+//        Map<String, Object> map = new HashMap<>();
+//        bookRepository.deleteAll();
+//        map.put("code", "200");
+//        map.put("message", "ok");
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//    }
 
     /**
      * @param no
@@ -72,17 +74,17 @@ public class BookService {
      * 흠 삭제 성공했을 땐 returnCode와 returnMessage를 따로 반환해주고 싶은데...흠...
      * 리턴타입 고민해보기
      */
-    public ResponseEntity<Map<String, Object>> delete(Long no) {
-        Map<String, Object> map = new HashMap<>();
-
-        bookRepository.delete(
-                bookRepository.findById(no).orElseThrow(() -> new IllegalArgumentException("삭제실패. 데이터를 찾을 수 없음"))
-        );
-
-        map.put("code", "200");
-        map.put("message", "ok");
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-
-    }
+//    public ResponseEntity<Map<String, Object>> delete(Long no) {
+//        Map<String, Object> map = new HashMap<>();
+//
+//        bookRepository.delete(
+//                bookRepository.findById(no).orElseThrow(() -> new IllegalArgumentException("삭제실패. 데이터를 찾을 수 없음"))
+//        );
+//
+//        map.put("code", "200");
+//        map.put("message", "ok");
+//
+//        return new ResponseEntity<>(map, HttpStatus.OK);
+//
+//    }
 }

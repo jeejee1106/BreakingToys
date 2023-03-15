@@ -21,6 +21,7 @@ public class BookController {
     @Operation(summary = "도서 등록")
     @PostMapping
     public BookDto.BookRes saveBook(BookDto.SaveBookReq req) {
+        log.info(">>>>requestParam = {}", req);
         return bookService.saveBook(req);
     }
 
@@ -36,22 +37,22 @@ public class BookController {
         return bookService.findById(no);
     }
     
-    @Operation(summary = "도서 전체 삭제")
-    @DeleteMapping
-    public ResponseEntity<Map<String, Object>> deleteAll() {
-        return bookService.deleteAll();
-    }
-    
-//    @Operation(summary = "deleteById로 도서관 삭제")
-//    @DeleteMapping("/{no}")
-//    public void deleteById(@PathVariable Long no) {
-//        bookService.deleteById(no);
+//    @Operation(summary = "도서 전체 삭제")
+//    @DeleteMapping
+//    public ResponseEntity<Map<String, Object>> deleteAll() {
+//        return bookService.deleteAll();
 //    }
     
-    @Operation(summary = "delete로 도서관 삭제")
+    @Operation(summary = "deleteById로 도서관 삭제")
     @DeleteMapping("/{no}")
-    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long no) {
-        return bookService.delete(no);
+    public void deleteById(@PathVariable Long no) {
+        bookService.deleteById(no);
     }
+    
+//    @Operation(summary = "delete로 도서관 삭제")
+//    @DeleteMapping("/{no}")
+//    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long no) {
+//        return bookService.delete(no);
+//    }
 
 }
