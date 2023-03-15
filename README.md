@@ -1,7 +1,11 @@
 # [부숴도 괜찮은 장난감]
 
 ### Main URL
-http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080/swagger-ui/index.html -> root경로 호출 시 해당 url로 redirect되도록 설정 완료
+- **참고
+  - swagger-UI 버전에 따라 접속해야하는 주소가 다름
+  - swagger-UI 2.x : http://localhost:8080/swagger-ui.html
+  - swagger-UI 3.x : http://localhost:8080/swagger-ui/index.html
 
 ### H2 DataBase URL
 http://localhost:8080/h2-console
