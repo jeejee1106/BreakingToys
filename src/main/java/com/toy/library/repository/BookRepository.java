@@ -34,9 +34,9 @@ public class BookRepository {
         em.remove(book);
     }
 
-    public List<Long> count() {
+    public Long count() {
         return em.createQuery("select count(b) from Book b", Long.class)
-                .getResultList();
+                .getSingleResult();
     }
 
 }

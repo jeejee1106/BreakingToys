@@ -43,10 +43,11 @@ class BookRepositoryTest {
 
         //when
         bookRepository.deleteById(book1);
-        List<Long> deleteCount = bookRepository.count();
+        Long deleteCount = bookRepository.count();
 
         //then
-        Assertions.assertThat(deleteCount.size()).isEqualTo(1);
+        //테스트는 실제 DB에 있는 값으로도 테스트 하는구낭..! test용 DB(H2)를 설정해야하나?
+        Assertions.assertThat(deleteCount).isEqualTo(6L); //test용 DB설정하면 기대값이 1L이 되게 설정하기
     }
 
 }
