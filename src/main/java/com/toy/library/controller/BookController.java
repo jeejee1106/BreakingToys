@@ -45,9 +45,9 @@ public class BookController {
 //    }
     
     @Operation(summary = "deleteById로 도서관 삭제")
-    @DeleteMapping
-    public void deleteById(Book book) {
-        bookService.deleteById(book);
+    @DeleteMapping("/{no}")
+    public void deleteById(@PathVariable @Valid Long no) {
+        bookService.deleteById(no);
     }
     
 //    @Operation(summary = "delete로 도서관 삭제")

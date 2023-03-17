@@ -30,8 +30,9 @@ public class BookRepository {
         return Optional.ofNullable(book);
     }
 
-    public void deleteById(Book book) {
-        em.remove(book);
+    public void deleteById(Long no) {
+        Book book1 = em.find(Book.class, no);
+        em.remove(book1);
     }
 
     public Long count() {

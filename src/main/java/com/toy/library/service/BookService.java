@@ -58,8 +58,8 @@ public class BookService {
      * null입력 시 500에러 발생
      * 흠 삭제 성공했을 땐 returnCode와 returnMessage를 따로 반환해주고 싶은데...흠...
      */
-    public void deleteById(Book book) {
-        bookRepository.deleteById(book);
+    public void deleteById(Long no) {
+        bookRepository.deleteById(no);
     }
 
     /**
