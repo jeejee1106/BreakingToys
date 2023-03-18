@@ -1,6 +1,7 @@
 package com.toy.library.repository;
 
 import com.toy.library.entity.Book;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Slf4j
 //@RequiredArgsConstructor //EntityManager @PersistenceContext 대신 생성자 주입처럼 사용가능
 public class BookRepository {
 
@@ -25,14 +27,20 @@ public class BookRepository {
                 .getResultList();
     }
 
-    public Optional<Book> findById(Long no) {
-        Book book = em.find(Book.class, no);
+    public Optional<Book> findById(Long bookNo) {
+        Book book = em.find(Book.class, bookNo);
         return Optional.ofNullable(book);
     }
 
-    public void deleteById(Long no) {
-        Book book1 = em.find(Book.class, no);
-        em.remove(book1);
+    public void deleteByIdPhysical(Long bookNo) {
+        Book book = em.find(Book.class, bookNo);
+        em.remove(book);
+    }
+
+    public void deleteByIdLogical(Long bookNo) {
+        em.createQuery("update Book b set b.delYn = 'Y' where b.bookNo = :bookNo")
+                .setParameter("bookNo", bookNo)
+                .executeUpdate();
     }
 
     public Long count() {

@@ -7,9 +7,11 @@ import com.toy.library.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -33,27 +35,21 @@ public class BookController {
     }
 
     @Operation(summary = "고유No로 도서 조회")
-    @GetMapping("/{no}")
-    public BookResDto.BookRes findById(@PathVariable @Valid Long no) {
-        return bookService.findById(no);
+    @GetMapping("/{bookNo}")
+    public BookResDto.BookRes findById(@PathVariable @Valid Long bookNo) {
+        return bookService.findById(bookNo);
     }
-    
-//    @Operation(summary = "도서 전체 삭제")
-//    @DeleteMapping
-//    public ResponseEntity<Map<String, Object>> deleteAll() {
-//        return bookService.deleteAll();
-//    }
-    
-    @Operation(summary = "deleteById로 도서관 삭제")
-    @DeleteMapping("/{no}")
-    public void deleteById(@PathVariable @Valid Long no) {
-        bookService.deleteById(no);
+
+    @Operation(summary = "도서 삭제(물리)")
+    @DeleteMapping("/physical/{bookNo}")
+    public void deleteByIdPhysical(@PathVariable @Valid Long bookNo) {
+        bookService.deleteByIdPhysical(bookNo);
     }
-    
-//    @Operation(summary = "delete로 도서관 삭제")
-//    @DeleteMapping("/{no}")
-//    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long no) {
-//        return bookService.delete(no);
-//    }
+
+    @Operation(summary = "도서 삭제(논리)")
+    @DeleteMapping("/logical/{bookNo}")
+    public void deleteByIdLogical(@PathVariable @Valid Long bookNo) {
+        bookService.deleteByIdLogical(bookNo);
+    }
 
 }
