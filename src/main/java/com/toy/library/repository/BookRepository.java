@@ -40,7 +40,7 @@ public class BookRepository {
     public void deleteByIdLogical(Long bookNo) {
         em.createQuery("update Book b set b.delYn = 'Y' where b.bookNo = :bookNo")
                 .setParameter("bookNo", bookNo)
-                .executeUpdate();
+                .executeUpdate(); //이렇게 사용하는 것은 벌크연산. 쿼리 한번으로 여러 테이블의 로우를 변경 가능.
     }
 
     public Long count() {
