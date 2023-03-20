@@ -49,4 +49,9 @@ public class Book extends BaseTimeEntity{
     public Book(Long bookNo) {
         this.bookNo = bookNo;
     }
+
+    public void deleteByIdLogical(Long bookNo) {
+        this.bookNo = bookNo;
+        this.delYn = "Y";
+    }
 }

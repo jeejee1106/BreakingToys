@@ -6,8 +6,6 @@ import com.toy.library.entity.Book;
 import com.toy.library.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +20,8 @@ public class BookService {
     private final BookRepository bookRepository;
 
     public BookResDto.BookRes saveBook(BookReqDto.SaveBookReq bookReqDto) {
-        Book entity = bookRepository.save(bookReqDto.toEntity());
-        return new BookResDto.BookRes(entity);
+        Book book = bookRepository.save(bookReqDto.toEntity());
+        return new BookResDto.BookRes(book);
     }
 
     public BookResDto.SelectBookListRes findAll() {
@@ -32,8 +30,8 @@ public class BookService {
     }
 
     public BookResDto.BookRes findById(Long bookNo) {
-        Book entity = bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
-        return new BookResDto.BookRes(entity);
+        Book book = bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
+        return new BookResDto.BookRes(book);
     }
 
     public void deleteByIdPhysical(Long bookNo) {
@@ -41,7 +39,12 @@ public class BookService {
     }
 
     public void deleteByIdLogical(Long bookNo) {
-        bookRepository.deleteByIdLogical(bookNo);
+        //변경감지를 사용한 update (setter 사용하지 않음!)
+        Book book = bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
+        book.deleteByIdLogical(bookNo);
+
+        //벌크연산을 활용한 update
+//        bookRepository.deleteByIdLogical(bookNo);
     }
 
 }
