@@ -17,3 +17,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+  #메세지 설정
+  messages:
+    basename: messages

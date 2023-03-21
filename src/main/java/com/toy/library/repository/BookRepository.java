@@ -32,6 +32,11 @@ public class BookRepository {
         return Optional.ofNullable(book);
     }
 
+    public Book updateBook(Book book) {
+        em.persist(book);
+        return book;
+    }
+
     public void deleteByIdPhysical(Long bookNo) {
         Book book = em.find(Book.class, bookNo);
         em.remove(book);

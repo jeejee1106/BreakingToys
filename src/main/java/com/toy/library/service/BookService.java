@@ -19,8 +19,8 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
-    public BookResDto.BookRes saveBook(BookReqDto.SaveBookReq bookReqDto) {
-        Book book = bookRepository.save(bookReqDto.toEntity());
+    public BookResDto.BookRes saveBook(BookReqDto.SaveBookReq req) {
+        Book book = bookRepository.save(req.toEntity());
         return new BookResDto.BookRes(book);
     }
 
@@ -34,14 +34,22 @@ public class BookService {
         return new BookResDto.BookRes(book);
     }
 
+    public BookResDto.BookRes updateBook(BookReqDto.UpdateBookReq req) {
+        Book book = bookRepository.updateBook(req.toEntity());
+        return new BookResDto.BookRes(book);
+    }
+
     public void deleteByIdPhysical(Long bookNo) {
+        bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
         bookRepository.deleteByIdPhysical(bookNo);
+
     }
 
     public void deleteByIdLogical(Long bookNo) {
         //변경감지를 사용한 update (setter 사용하지 않음!)
         Book book = bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
         book.deleteByIdLogical(bookNo);
+
 
         //벌크연산을 활용한 update
 //        bookRepository.deleteByIdLogical(bookNo);

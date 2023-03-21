@@ -1,4 +1,4 @@
-package com.toy.library.exception;
+package com.toy.library.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
