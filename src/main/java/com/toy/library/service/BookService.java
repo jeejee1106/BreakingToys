@@ -35,7 +35,8 @@ public class BookService {
     }
 
     public BookResDto.BookRes updateBook(BookReqDto.UpdateBookReq req) {
-        Book book = bookRepository.updateBook(req.toEntity());
+        Book book = bookRepository.findById(req.getBookNo()).orElseThrow(() -> new IllegalArgumentException(req.getBookNo() + "번에 해당하는 도서가 없습니다."));
+        book.updateBook(req.toEntity());
         return new BookResDto.BookRes(book);
     }
 

@@ -37,8 +37,8 @@ public class BookController {
     }
 
     @Operation(summary = "도서 수정")
-    @PatchMapping("/{bookNo}")
-    public BookResDto.BookRes updateBook(@PathVariable @Valid BookReqDto.UpdateBookReq req) {
+    @PatchMapping
+    public BookResDto.BookRes updateBook(@Valid BookReqDto.UpdateBookReq req) {
         return bookService.updateBook(req);
     }
 

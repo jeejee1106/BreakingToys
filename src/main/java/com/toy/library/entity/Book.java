@@ -50,6 +50,14 @@ public class Book extends BaseTimeEntity{
         this.bookNo = bookNo;
     }
 
+    public void updateBook(Book book) {
+        this.title = book.title;
+        this.loanStatusYn = book.loanStatusYn;
+        this.lossYn = book.lossYn;
+        this.rsvStatusYn = book.rsvStatusYn;
+        this.delYn = book.delYn;
+    }
+
     public void deleteByIdLogical(Long bookNo) {
         this.bookNo = bookNo;
         this.delYn = "Y";
