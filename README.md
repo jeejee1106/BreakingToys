@@ -84,3 +84,23 @@ db 연결 안됐다는 에러, 활성화 시키라는 에러가 뜨면 이 전�
   - EntityManager는 findById()를 통해 가져온 값을 스냅샷으로 보관. 다음 커밋이 이루어질 때 보관된 스냅샷과 커밋될 때의 값을 비교하고,
   - 이 때 값이 변경되었으면 값이 변경되었음을 감지하고 데이터에 대한 UPDATE를 해준다는 것을 의미한다.(더티 체킹!)
 </details>
+
+<details>
+<summary><b> 4) 트러블슈팅 - JPA는 트랜잭션을 기반으로 작동! </b></summary>
+
+- 문제
+  - No EntityManager with actual transaction available for current thread - cannot reliably process 'persist' call
+  - Library를 등록하는 기능 구현 중 위 에러 발생
+- 원인
+  - 기본적으로 JPA는 transaction을 기반으로 작동하게 되어있다.
+  - 하나의 transaction 별로 1차캐시영역에 있는 객체들이 db에 flush되어 영속화되기 때문이다.
+  - 하지만 그러한 영속작업을 하는 persist() 메소드에 객체가 들어갔으나 가능한 transaction이 존재하지 않았기에 위 에러를 낸것이다.
+- 해결 방안
+  - service단에 @Transactional 어노테이션을 붙여 트랜잭션을 만들어준다.
+  - 주의사항!!!
+    - 클래스에는 @Transactional(readOnly = true) / 메소드에는 @Transactional 을 붙여 read 트랜잭션과 write 트랜잭션을 구분하는 것이 좋다.
+    - 클래스에 @Transactional(readOnly = true)로 설정하고 쓰기메서드에 깜박하고 @Transactional를 안붙여주면 
+    - could not execute statement
+    - Connection is read-only. Queries leading to data modification are not allowed
+    - 위 에러가 또 발생한다!!
+</details>
