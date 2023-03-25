@@ -13,12 +13,13 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
 
+    @Transactional
     public BookResDto.BookRes saveBook(BookReqDto.SaveBookReq req) {
         Book book = bookRepository.save(req.toEntity());
         return new BookResDto.BookRes(book);
@@ -34,6 +35,7 @@ public class BookService {
         return new BookResDto.BookRes(book);
     }
 
+    @Transactional
     public BookResDto.BookRes updateBook(BookReqDto.UpdateBookReq req) {
         Book book = bookRepository.findById(req.getBookNo()).orElseThrow(() -> new IllegalArgumentException(req.getBookNo() + "번에 해당하는 도서가 없습니다."));
         book.updateBook(req.toEntity());
