@@ -25,30 +25,17 @@ public class LibraryController {
         return libraryService.saveLibrary(req);
     }
 
-//    @Operation(summary = "도서관 목록 전체 조회")
-//    @GetMapping
-//    public LibraryResDto.SelectLibraryListRes findAll() {
-//        return libraryService.findAll();
-//    }
+    @Operation(summary = "도서관 목록 전체 조회")
+    @GetMapping
+    public LibraryResDto.SelectLibraryListRes findAll() {
+        return libraryService.findAll();
+    }
 
-//    @Operation(summary = "고유No로 도서관 조회")
-//    @GetMapping("/{no}")
-//    public LibraryResDto.LibraryRes findById(@PathVariable Long no) {
-//        return libraryService.findById(no);
-//    }
-
-    /**
-     * 리턴타입 고민해보기
-     * ResponseEntity : 상태코드도 직접 지정해줄 수 있고, HttpHeader? Body?에 정보를 더 담을 수 있다.
-     * Map : 반환에 필요한 정보만 담을 수 있다.
-     * 또 뭐가 있을까
-     * @return
-     */
-//    @Operation(summary = "도서관 전체 삭제")
-//    @DeleteMapping
-//    public ResponseEntity<Map<String, Object>> deleteAll() {
-//        return libraryService.deleteAll();
-//    }
+    @Operation(summary = "고유No로 도서관 조회")
+    @GetMapping("/{libraryNo}")
+    public LibraryResDto.LibraryRes findById(@PathVariable Long libraryNo) {
+        return libraryService.findById(libraryNo);
+    }
 
     /**
      * 도서관 삭제는 deleteById 또는 delete 두 개 중 아무거나 사용.

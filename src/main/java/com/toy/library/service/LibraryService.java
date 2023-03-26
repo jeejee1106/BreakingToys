@@ -29,15 +29,15 @@ public class LibraryService {
         return new LibraryResDto.LibraryRes(library);
     }
 
-//    public LibraryResDto.SelectLibraryListRes findAll() {
-//        List<Library> list = libraryRepository.findAll();
-//        return new LibraryDto.SelectLibraryListRes(list, list.size());
-//    }
+    public LibraryResDto.SelectLibraryListRes findAll() {
+        List<Library> list = libraryRepository.findAll();
+        return new LibraryResDto.SelectLibraryListRes(list, list.size());
+    }
 
-//    public LibraryResDto.LibraryRes findById(Long no) {
-//        Library entity = libraryRepository.findById(no).orElseThrow(() -> new IllegalArgumentException(no + "번에 해당하는 도서관이 없습니다."));
-//        return new LibraryDto.LibraryRes(entity);
-//    }
+    public LibraryResDto.LibraryRes findById(Long libraryNo) {
+        Library entity = libraryRepository.findById(libraryNo).orElseThrow(() -> new IllegalArgumentException(libraryNo + "번에 해당하는 도서관이 없습니다."));
+        return new LibraryResDto.LibraryRes(entity);
+    }
 
     /**
      * 리턴타입 고민해보기
