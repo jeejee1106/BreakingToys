@@ -42,7 +42,7 @@ class BookRepositoryTest {
         bookRepository.save(book2);
 
         //when
-        bookRepository.deleteByIdPhysical(book1.getBookNo());
+        bookRepository.deleteByIdPhysical(book1);
         Long deleteCount = bookRepository.count();
 
         //then

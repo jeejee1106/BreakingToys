@@ -42,9 +42,13 @@ public class BookService {
         return new BookResDto.BookRes(book);
     }
 
+    @Transactional
     public void deleteByIdPhysical(Long bookNo) {
-        bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
-        bookRepository.deleteByIdPhysical(bookNo);
+        log.info("================");
+        Book book = bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException(bookNo + "번에 해당하는 도서가 없습니다."));
+        log.info("================");
+        bookRepository.deleteByIdPhysical(book);
+        log.info("여기서 커밋이 되는 것이 아니다.");
 
     }
 

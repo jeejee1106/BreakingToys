@@ -46,6 +46,7 @@ public class BookController {
     @DeleteMapping("/physical/{bookNo}")
     public void deleteByIdPhysical(@PathVariable @Valid Long bookNo) {
         bookService.deleteByIdPhysical(bookNo);
+        log.info("여기서 커밋이 된다.");
     }
 
     @Operation(summary = "도서 삭제(논리)")

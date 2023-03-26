@@ -30,4 +30,8 @@ public class LibraryRepository {
         return Optional.ofNullable(library);
     }
 
+    public void deleteByIdPhysical(Library library) {
+        em.remove(library);
+    }
+
 }
