@@ -1,8 +1,5 @@
 package com.toy.testcodetoy.subscription;
 
-import net.bytebuddy.asm.Advice;
-import org.hibernate.bytecode.internal.bytebuddy.BulkAccessorException;
-
 import java.time.LocalDate;
 
 public class PayData {
