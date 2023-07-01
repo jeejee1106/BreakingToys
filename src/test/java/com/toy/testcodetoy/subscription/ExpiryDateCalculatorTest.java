@@ -95,15 +95,15 @@ public class ExpiryDateCalculatorTest {
     }
 
     @Test
-    void 첫납부일과_만료일날짜가다를떄_만원납부하면_첫납부일기준으로_다음만료일정함() {
+    void 첫납부일과_만료일날짜가다를떄_만원납부하면_첫납부일기준으로_다음만료일_정함() {
         // #1
         PayData payData = PayData.builder()
-                .firstBillingDate(LocalDate.of(2019, 1, 31))
-                .billingDate(LocalDate.of(2019, 2, 28))
-                .payAmount(10000)
+                .firstBillingDate(LocalDate.of(2019, 1, 31)) //이 때부터 구독을 시작했어
+                .billingDate(LocalDate.of(2019, 2, 28)) //이 때가 구독 만료일이야
+                .payAmount(10000) //그래서 만원을 더 냈어
                 .build();
 
-        assertExpiryDate(payData, LocalDate.of(2019, 3, 31));
+        assertExpiryDate(payData, LocalDate.of(2019, 3, 31)); //최종 만료일이야
 
         // #2
         PayData payData2 = PayData.builder()
@@ -122,5 +122,122 @@ public class ExpiryDateCalculatorTest {
                 .build();
 
         assertExpiryDate(payData3, LocalDate.of(2019, 7, 31));
+    }
+
+    @Test
+    void 이만원이상_납부하면_비례해서_만료일계산() {
+        // #1 : 이만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 3, 1))
+                        .payAmount(20000)
+                        .build(),
+                LocalDate.of(2019, 5, 1)
+        );
+
+        // #2 : 삼만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 3, 1))
+                        .payAmount(30000)
+                        .build(),
+                LocalDate.of(2019, 6, 1)
+        );
+
+        // #3 : 오만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 3, 1))
+                        .payAmount(50000)
+                        .build(),
+                LocalDate.of(2019, 8, 1)
+        );
+
+        // #4 : 구만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 3, 1))
+                        .payAmount(90000)
+                        .build(),
+                LocalDate.of(2019, 12, 1)
+        );
+
+        // #5 : 이만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 11, 1))
+                        .payAmount(20000)
+                        .build(),
+                LocalDate.of(2020, 1, 1)
+        );
+
+        // #5 : 이만원 납부했을 때
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 11, 30))
+                        .payAmount(20000)
+                        .build(),
+                LocalDate.of(2020, 1, 30)
+        );
+    }
+
+    @Test
+    void 첫납부일과_첫만료일날짜가다를때_첫만료일에_다시이만원이상_납부하면_날짜크기비교해야함() {
+        /*
+        이 부분 좀 헷갈린다..!
+        복습할 때 헷갈리면 꼭 책보고 다시 천천히 생각해보기.
+         */
+
+        // #1
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2019, 1, 31)) //이 때부터 구독을 시작했어
+                        .billingDate(LocalDate.of(2019, 2, 28)) //이 때가 만료일이야
+                        .payAmount(20000) //그래서 이만원을 더 냈어 (즉, 2019-2-28이 첫 납부일!)
+                        .build(),
+                LocalDate.of(2019, 4, 30) //그래서 이 때가 최종만료일이야
+        );
+
+        // #2
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2019, 1, 31))
+                        .billingDate(LocalDate.of(2019, 2, 28))
+                        .payAmount(40000)
+                        .build(),
+                LocalDate.of(2019, 6, 30)
+        );
+
+        // #3
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2109, 3, 31))
+                        .billingDate(LocalDate.of(2019, 4, 30))
+                        .payAmount(30000)
+                        .build(),
+                LocalDate.of(2019, 7, 31)
+        );
+
+        // #4
+        assertExpiryDate(
+                PayData.builder()
+                        .firstBillingDate(LocalDate.of(2019, 12, 31))
+                        .billingDate(LocalDate.of(2020, 1, 31))
+                        .payAmount(20000)
+                        .build(),
+                LocalDate.of(2020, 3, 31)
+        );
+    }
+
+    @Test
+    void 십만원을_납부하면_12개월제공() {
+        // #1
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 1, 28)) //이 때가 만료일이야
+                        .payAmount(100000) //그래서 이만원을 더 냈어 (즉, 2019-2-28이 첫 납부일!)
+                        .build(),
+                LocalDate.of(2020, 1, 28) //그래서 이 때가 최종만료일이야
+        );
     }
 }
