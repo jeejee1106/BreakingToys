@@ -7,7 +7,7 @@ public class ExpiryDateCalculator {
 
     public LocalDate calculateExpiryDate(PayData payData) {
         int payAmount = payData.getPayAmount(); //납부금액
-        int addedMonth = payAmount == 100000 ? 12 : payAmount / 10000;
+        int addedMonth = payAmount >= 100000 ? (payAmount / 10000) + 2 : payAmount / 10000;
 
         if (payData.getFirstBillingDate() != null) {
             //첫 납부일이 있으면 == 첫 만료일에 돈을 더 내면

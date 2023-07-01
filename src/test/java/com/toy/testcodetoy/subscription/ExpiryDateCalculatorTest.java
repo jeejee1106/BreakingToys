@@ -234,10 +234,52 @@ public class ExpiryDateCalculatorTest {
         // #1
         assertExpiryDate(
                 PayData.builder()
-                        .billingDate(LocalDate.of(2019, 1, 28)) //이 때가 만료일이야
-                        .payAmount(100000) //그래서 이만원을 더 냈어 (즉, 2019-2-28이 첫 납부일!)
+                        .billingDate(LocalDate.of(2019, 1, 28))
+                        .payAmount(100000)
                         .build(),
-                LocalDate.of(2020, 1, 28) //그래서 이 때가 최종만료일이야
+                LocalDate.of(2020, 1, 28)
+        );
+    }
+
+    @Test
+    void 십만원이상_납부하면_추가개월제공() {
+        // #1
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 1, 28))
+                        .payAmount(110000) //총 13개월을 더 연장한거임
+                        .build(),
+                LocalDate.of(2020, 2, 28)
+        );
+
+        // #2
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 8, 31))
+                        .payAmount(110000) //총 13개월을 더 연장한거임
+                        .build(),
+                LocalDate.of(2020, 9, 30)
+        );
+
+        // #3
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2019, 5, 28))
+                        .payAmount(200000) //총 22개월을 더 연장한거임
+                        .build(),
+                LocalDate.of(2021, 3, 28)
+        );
+    }
+
+    @Test
+    void 십만원을_납부했는데_윤달낀2월이라면() {
+        // #1
+        assertExpiryDate(
+                PayData.builder()
+                        .billingDate(LocalDate.of(2020, 2, 29))
+                        .payAmount(100000)
+                        .build(),
+                LocalDate.of(2021, 2, 28)
         );
     }
 }
