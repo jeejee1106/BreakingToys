@@ -20,7 +20,14 @@ public class UserRegisterTest {
     @DisplayName("약한 암호면 가입 실패")
     @Test
     void weakPassword() {
-        stubPasswordChecker.setWeak(true); // 암호가 약하다고 응답하도록 설정
+
+        /*
+            - 실제 동작하는 구현은 필요하지 않다.
+            - 약한 암호인지 여부를 알려주기만 하면 되므로 스텁 대역이면 충분하다.
+         */
+        //스텁으로 하여금 암호 확인 효청이 오면 암호가 약하다고 응답하도록 설정
+        //아직 구현 전이니까 그런 목적으로 작성한 코드임!
+        stubPasswordChecker.setWeak(true);
 
         Assertions.assertThrows(WeakPasswordException.class, () -> {
             userRegister.register("id", "pw", "email");
