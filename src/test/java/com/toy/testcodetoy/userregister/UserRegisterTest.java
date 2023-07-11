@@ -19,6 +19,9 @@ public class UserRegisterTest {
         userRegister = new UserRegister(stubPasswordChecker, fakeRepository, spyEmailNotifier);
     }
 
+    /**
+     * stub을 활용한 테스트
+     */
     @DisplayName("약한 암호면 가입 실패")
     @Test
     void weakPassword() {
@@ -36,6 +39,9 @@ public class UserRegisterTest {
         });
     }
 
+    /**
+     * fake를 활용한 테스트
+     */
     @DisplayName("이미 같은 ID가 존재하면 가입 실패")
     @Test
     void dupIdExists() {
@@ -47,6 +53,9 @@ public class UserRegisterTest {
         });
     }
 
+    /**
+     * fake를 활용한 테스트
+     */
     @DisplayName("같은 ID가 존재하지 않으면 가입 성공")
     @Test
     void noDupId_RegisterSuccess() {
@@ -59,6 +68,9 @@ public class UserRegisterTest {
         Assertions.assertEquals("email", saveUser.getEmail());
     }
 
+    /**
+     * spy를 활용한 테스트
+     */
     @DisplayName("가입하면 메일을 전송함")
     @Test
     void whenRegisterThenSendMail() {

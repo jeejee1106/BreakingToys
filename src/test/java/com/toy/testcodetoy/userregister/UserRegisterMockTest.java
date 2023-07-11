@@ -31,6 +31,10 @@ public class UserRegisterMockTest {
         userRegister = new UserRegister(mockPasswordChecker, fakeRepository, mockEmailNotifier);
     }
 
+
+    /**
+     * mockito를 활용한 테스트
+     */
     @DisplayName("약한 암호면 가입 실패")
     @Test
     void weakPassword() {
@@ -51,6 +55,9 @@ public class UserRegisterMockTest {
         });
     }
 
+    /**
+     * mockito를 활용한 테스트
+     */
     @DisplayName("회원 가입 시 암호 검사 수행 했는지 확인")
     @Test
     void checkPassword() {
@@ -66,6 +73,9 @@ public class UserRegisterMockTest {
                 .checkPasswordWeak(BDDMockito.anyString()); //정확한 값이 아니라 호출여부가 중요하다면 any~() 등을 사용한다.
     }
 
+    /**
+     * mockito를 활용한 테스트
+     */
     @DisplayName("가입하면 메일을 전송함")
     @Test
     void whenRegisterThenSendMail() {
